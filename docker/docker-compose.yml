@@ -45,3 +45,29 @@ services:
       main:
         aliases:
           - mysql
+
+  database:
+    image: debian
+    container_name: devops_micro_db
+    volumes:
+      - ./services/Database:/devops/services/Database
+      - ./scripts/:/devops/scripts/
+    command: /devops/scripts/run_service.sh Database
+    networks:
+      main:
+        aliases:
+          - microdb
+
+  RegisterUser:
+    image: debian
+    container_name: devops_micro_registerUser
+    volumes:
+      - ./services/RegisterUser:/devops/services/RegisterUser
+      - ./scripts/:/devops/scripts
+    command: /devops/scripts/run_service.sh RegisterUser
+    networks:
+      main:
+        aliases:
+          - microregisteruser
+
+
