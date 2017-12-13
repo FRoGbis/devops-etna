@@ -8,7 +8,7 @@ services:
     container_name: devops_api
     restart: always
     volumes:
-      - /home/etna/Documents/etna/Master2/Devops/miksa_t/api:/devops/api
+      - /home/etna/Documents/etna/Master2/Devops/devops-etna/api:/devops/api
     ports:
       - 5000:5000
     command: /devops/api/run.sh
@@ -32,7 +32,9 @@ services:
     image: mysql
     container_name: devops_mysql
     volumes:
-      - /home/etna/Documents/etna/Master2/Devops/miksa_t/sql/var/lib/mysql
+      - /home/etna/Documents/etna/Master2/Devops/devops-etna/sql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
     networks:
       main:
         aliases:
