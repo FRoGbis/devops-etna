@@ -1,0 +1,47 @@
+version: '2.2'
+networks:
+  main:
+  
+services:
+  api:
+    image: debian
+    container_name: devops_api
+    restart: always
+    volumes:
+      - /home/etna/Documents/etna/Master2/Devops/devops-etna/api:/devops/api
+    ports:
+      - 5000:5000
+    command: /devops/api/run.sh
+    networks:
+      main:
+        aliases:
+          - api
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: devops_rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      main:
+        aliases:
+          - rabbitmq
+
+  mysql:
+    image: mysql
+    container_name: devops_mysql
+    volumes:
+      - ./mysql/etc/:/etc/mysql/mysql.conf.d/
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/log:/var/log/mysql
+      - ./mysql/backup:/backup
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "devops"
+      MYSQL_PASSWORD: "devops"
+      MYSQL_DATABASE: "DEVOPS"
+    networks:
+      main:
+        aliases:
+          - mysql

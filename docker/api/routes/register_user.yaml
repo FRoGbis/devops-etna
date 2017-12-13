@@ -1,0 +1,23 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      id: data
+      properties:
+        email:
+          type: string
+        lastname:
+            type: string
+        firstname:
+            type: string
+        password:
+            type: string
+        admin:
+            type: boolean
+          
+responses:
+  200:
+    description: "Create new user"
