@@ -42,6 +42,10 @@ class Database:
 
     def registerUser(self, user):
         user = User(email=user['email'], lastname=user['lastname'], firstname=user['firstname'], password=user['password'], admin=user['admin'])
-        self.session.add(user)
-        self.session.commit()
+        try:
+            self.session.add(user)
+            self.session.commit()
+        except:
+            self.session.rollback()
+            raise
         return True

@@ -49,10 +49,13 @@ services:
   database:
     image: debian
     container_name: devops_micro_db
+    depends_on:
+      - "rabbitmq"
+      - "mysql"
     volumes:
-      - ./services/Database:/devops/services/Database
+      - ./services/Database:/devops/services/DatabaseService
       - ./scripts/:/devops/scripts/
-    command: /devops/scripts/run_service.sh Database
+    command: /devops/scripts/run_service.sh DatabaseService
     networks:
       main:
         aliases:
@@ -61,6 +64,8 @@ services:
   RegisterUser:
     image: debian
     container_name: devops_micro_registerUser
+    depends_on:
+      - "rabbitmq"
     volumes:
       - ./services/RegisterUser:/devops/services/RegisterUser
       - ./scripts/:/devops/scripts

@@ -3,7 +3,7 @@ from Database import Database
 
 class DatabaseService(object):
     name = 'databaseService'
-    database = Database("devops", "devops", "localhost")
+    database = Database("devops", "devops", "mysql")
 	
     @rpc
     def addUser(self, user):
