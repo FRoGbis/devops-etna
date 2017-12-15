@@ -28,14 +28,14 @@ class Hostel(Base):
     
 class Room(Base):
     __tablename__ = 'Room'
-    hostelId = Column(String(50), ForeignKey(Hostel.name), primary_key=True)
-    categoryId = Column(String(2), ForeignKey(Category.name), primary_key=True)   
+    roomId = Column(Integer, primary_key=True, autoincrement=True)
+    hostelId = Column(String(50), ForeignKey(Hostel.name))
+    categoryId = Column(String(2), ForeignKey(Category.name))
     
 class Booking(Base):
     __tablename__ = 'Booking'
     bookingId = Column(Integer, primary_key=True, autoincrement=True)
-    hostelId = Column(String(50))
-    categoryId = Column(String(2))
+    roomId = Column(Integer, ForeignKey(Room.roomId))
     userId = Column(String(50), ForeignKey(User.email))
     startDate = Column(Date)
     duration = Column(Integer)
@@ -43,7 +43,6 @@ class Booking(Base):
     hasCrib = Column(Boolean)
     hasRomancePack = Column(Boolean)
     hasBreakfast = Column(Boolean)
-    ForeignKeyConstraint(['hostelId', 'categoryId'], ['Room.hostelId', 'Room.categoryId'])
 
 class DayCoeff(Base):
     __tablename__ = 'DayCoeff'
@@ -73,6 +72,17 @@ def createCategories(target, connection, **kw):
 def createHostels(target, connection, **kw):
     connection.execute('INSERT INTO Hostel(name, adress, tel, parking_space, crib) VALUES("Hotel 1", "1 rue aurice", "0322784512", 3, 2)')
     connection.execute('INSERT INTO Hostel(name, adress, tel, parking_space, crib) VALUES("Hotel 2", "12 rue aurice", "0322784513", 2, 2)')
+    
+@event.listens_for(Room.__table__, 'after_create')
+def createRooms(target, connection, **kw):
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 1", "S")')
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 1", "JS")')
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 1", "S")')
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 1", "CD")')
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 1", "CS")')
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 1", "CS")')
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 2", "SR")')
+    connection.execute('INSERT INTO Room(hostelId, categoryId) VALUES("Hotel 2", "SR")')
     
 def clean(engine):
     DayCoeff.__table__.drop(engine, checkfirst=True)
