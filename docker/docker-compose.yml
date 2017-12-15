@@ -36,6 +36,8 @@ services:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/log:/var/log/mysql
       - ./mysql/backup:/backup
+    ports:
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_USER: "devops"
