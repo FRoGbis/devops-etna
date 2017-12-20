@@ -1,0 +1,6 @@
+[manager]
+172.16.226.17 ansible_user=miksa_t
+
+[workers]
+172.16.226.49 ansible_user=miksa_t
+172.16.226.96 ansible_user=miksa_t

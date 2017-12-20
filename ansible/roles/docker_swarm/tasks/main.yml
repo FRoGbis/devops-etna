@@ -1,0 +1,46 @@
+- name: Install Docker dependencies
+  become: true
+  apt:
+    name: '{{ item }}'
+    state: 'present'
+  with_items:
+    - 'apt-transport-https'
+    - 'ca-certificates'
+    - 'software-properties-common'
+
+- name: Get upstream APT GPG key
+  become: true
+  apt_key:
+    id: '{{ docker_apt_key }}'
+    url: '{{ docker_apt_source }}'
+    state: 'present'
+
+
+- name: Add docker apt repository
+  become: true
+  apt_repository:
+    repo: '{{ docker_repository }}'
+    state: present
+    update_cache: true
+
+- name: Installs docker
+  become: true
+  apt: pkg=docker-ce state=installed update_cache=true
+
+- name: Destroy existing swarm
+  become: true
+  command: "docker swarm leave --force"
+  ignore_errors: true
+
+- name: Init swarm
+  become: true
+  when: inventory_hostname in groups['manager']
+  # command: docker swarm init | grep 'docker swarm join '
+  shell: >
+    docker swarm init | grep 'docker swarm join '
+  register: join_command
+
+- name: Join swarm
+  become: true
+  when: inventory_hostname in groups['workers']
+  command: '{{ join_command }}'
