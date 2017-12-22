@@ -15,7 +15,6 @@
     url: '{{ docker_apt_source }}'
     state: 'present'
 
-
 - name: Add docker apt repository
   become: true
   apt_repository:
@@ -35,12 +34,19 @@
 - name: Init swarm
   become: true
   when: inventory_hostname in groups['manager']
-  # command: docker swarm init | grep 'docker swarm join '
-  shell: >
-    docker swarm init | grep 'docker swarm join '
-  register: join_command
+  command: docker swarm init --advertise-addr {{ manager }}
 
-- name: Join swarm
+- name: Get the swarn token
   become: true
   when: inventory_hostname in groups['workers']
-  command: '{{ join_command }}'
+  shell: >
+    docker swarm join-token -q worker
+  changed_when: true
+  register: swarm_token
+  delegate_to: "{{ groups['manager'][0] }}"
+  delegate_facts: True
+    
+- name: Workers join swarm
+  become: true
+  when : inventory_hostname in groups['workers']
+  shell: docker swarm join --token "{{ swarm_token.stdout }}" "{{ manager }}":2377

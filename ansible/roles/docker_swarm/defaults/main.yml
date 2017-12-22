@@ -11,3 +11,4 @@ docker_distribution_release: '{{ ansible_local.core.distribution_release
 # Address of the Docker repository.
 docker_repository: 'deb [arch=amd64] https://download.docker.com/linux/{{ docker_distribution | lower }} {{ docker_distribution_release }} stable'
 docker_apt_source: 'https://download.docker.com/linux/{{ docker_distribution | lower }}/gpg'
+manager: 172.16.226.17
