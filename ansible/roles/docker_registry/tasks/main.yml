@@ -1,0 +1,28 @@
+- name: Import crt
+  become: true
+  copy:
+    src: ../../provision/domain.crt
+    dest: /etc/certs
+
+- name: Import key
+  become: true
+  copy:
+    src: ../../provision/domain.key
+    dest: /etc/certs
+
+- name: Check if container is running
+  become: true
+  shell: docker ps
+  register: containers
+
+- name: Deploy registry
+  become: true
+  when: inventory_hostname in groups['manager']
+  shell: >
+    docker service create --name registry --publish=5000:5000 \
+     --constraint=node.role==manager \
+     --mount=type=bind,src=/home/docker,dst=/certs \
+     -e REGISTRY_HTTP_ADDR=0.0.0.0:5000 \
+     -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
+     -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
+     registry:latest

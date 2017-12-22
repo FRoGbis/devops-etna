@@ -1,0 +1,6 @@
+[submodule "ansible/roles/docker_swarm/docker-registry"]
+	path = ansible/roles/docker_swarm/docker-registry
+	url = git://github.com/fupelaqu/ansible-docker-registry.git
+[submodule "ansible/roles/docker-registry"]
+	path = ansible/roles/docker-registry
+	url = git://github.com/fupelaqu/ansible-docker-registry.git
