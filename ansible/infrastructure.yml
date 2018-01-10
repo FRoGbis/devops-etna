@@ -2,6 +2,10 @@
 #   roles:
 #     - role: docker_swarm
 
-- hosts: manager:workers
+# - hosts: manager:workers
+#   roles:
+#     - role: docker_registry
+
+- hosts: manager
   roles:
-    - role: docker_registry
+    - role: docker_tickstack

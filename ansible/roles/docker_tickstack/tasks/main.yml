@@ -1,0 +1,37 @@
+- name: Import files from tickstack
+  become: true
+  copy:
+    src: ../../provision/influxdata
+    dest: /home/bebel_f/
+
+- name: Build chronograf
+  become: true
+  command: docker build -t myregistry.com:5000/chronograf /home/bebel_f/influxdata/chronograf
+
+- name: Push chronograf image on registry
+  become: true
+  command: docker push myregistry.com:5000/chronograf
+
+- name: Build influxdb
+  become: true
+  command: docker build -t myregistry.com:5000/influxdb /home/bebel_f/influxdata/influxdb
+
+- name: Push influxdb image on registry
+  become: true
+  command: docker push myregistry.com:5000/influxdb
+
+- name: Build kapacitor
+  become: true
+  command: docker build -t myregistry.com:5000/kapacitor /home/bebel_f/influxdata/kapacitor
+
+- name: Push kapacitor image on registry
+  become: true
+  command: docker push myregistry.com:5000/kapacitor
+
+- name: Build telegraf
+  become: true
+  command: docker build -t myregistry.com:5000/telegraf /home/bebel_f/influxdata/telegraf
+
+- name: Push telegraf image on registry
+  become: true
+  command: docker push myregistry.com:5000/telegraf
