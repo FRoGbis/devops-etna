@@ -2,6 +2,6 @@
   roles:
     - role: docker_swarm
 
-- hosts: manager
+- hosts: manager:workers
   roles:
     - role: docker_registry

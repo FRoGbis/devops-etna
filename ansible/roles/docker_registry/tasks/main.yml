@@ -1,14 +1,12 @@
-- name: Import crt
+- name: Change hostname
   become: true
-  copy:
-    src: ../../provision/domain.crt
-    dest: /etc/certs
+  command: echo "172.16.226.17 myregistry.com" >> /etc/hosts
 
-- name: Import key
+- name: Import daemon.json
   become: true
   copy:
-    src: ../../provision/domain.key
-    dest: /etc/certs
+    src: ../../provision/daemon.json
+    dest: /etc/docker/
 
 - name: Check if container is running
   become: true
@@ -18,11 +16,10 @@
 - name: Deploy registry
   become: true
   when: inventory_hostname in groups['manager']
+  ignore_errors: yes
   shell: >
     docker service create --name registry --publish=5000:5000 \
      --constraint=node.role==manager \
      --mount=type=bind,src=/home/docker,dst=/certs \
      -e REGISTRY_HTTP_ADDR=0.0.0.0:5000 \
-     -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
-     -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
      registry:latest

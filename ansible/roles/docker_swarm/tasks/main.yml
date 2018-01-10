@@ -33,6 +33,7 @@
 
 - name: Init swarm
   become: true
+  ignore_errors: yes
   when: inventory_hostname in groups['manager']
   command: docker swarm init --advertise-addr {{ manager }}
 
@@ -47,6 +48,7 @@
   delegate_facts: True
     
 - name: Workers join swarm
+  ignore_errors: yes
   become: true
   when : inventory_hostname in groups['workers']
   shell: docker swarm join --token "{{ swarm_token.stdout }}" "{{ manager }}":2377
