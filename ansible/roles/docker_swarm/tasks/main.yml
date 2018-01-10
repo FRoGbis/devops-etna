@@ -26,10 +26,10 @@
   become: true
   apt: pkg=docker-ce state=installed update_cache=true
 
-- name: Destroy existing swarm
-  become: true
-  command: "docker swarm leave --force"
-  ignore_errors: true
+# - name: Destroy existing swarm
+#   become: true
+#   command: "docker swarm leave --force"
+#   ignore_errors: true
 
 - name: Init swarm
   become: true
@@ -37,7 +37,7 @@
   when: inventory_hostname in groups['manager']
   command: docker swarm init --advertise-addr {{ manager }}
 
-- name: Get the swarn token
+- name: Get the swarm token
   become: true
   when: inventory_hostname in groups['workers']
   shell: >

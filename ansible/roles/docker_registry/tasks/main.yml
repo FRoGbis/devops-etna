@@ -1,12 +1,31 @@
-- name: Change hostname
+- name: Import crt
   become: true
-  command: echo "172.16.226.17 myregistry.com" >> /etc/hosts
+  copy:
+    src: ../../provision/domain.crt
+    dest: /usr/local/share/ca-certificates
+
+- name: Import key
+  become: true
+  copy:
+    src: ../../provision/domain.key
+    dest: /usr/local/share/ca-certificates
+
+- name: Add domain myregistry.com on ip of the swarm manager
+  become: true
+  lineinfile:
+    dest: /etc/hosts
+    line: "172.16.226.17 myregistry.com"
+    state: present
 
 - name: Import daemon.json
   become: true
   copy:
     src: ../../provision/daemon.json
     dest: /etc/docker/
+
+- name: Restart docker service
+  become: true
+  command: /etc/init.d/docker restart
 
 - name: Check if container is running
   become: true

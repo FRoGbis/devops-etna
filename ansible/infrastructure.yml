@@ -1,6 +1,6 @@
-- hosts: manager:workers
-  roles:
-    - role: docker_swarm
+# - hosts: manager:workers
+#   roles:
+#     - role: docker_swarm
 
 - hosts: manager:workers
   roles:
