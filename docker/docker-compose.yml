@@ -8,25 +8,15 @@ services:
     container_name: devops_api
     restart: always
     volumes:
-      - ./api:/devops/api
+      - ./service_auth:/devops/service_auth
+      - ./scripts:/devops/scripts
     ports:
       - 5000:5000
-    command: /devops/api/run.sh
+    command: /devops/scripts/run.sh /devops/service_auth api.py
     networks:
       main:
         aliases:
-          - api
-
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: devops_rabbitmq
-    ports:
-      - 15672:15672
-      - 5672:5672
-    networks:
-      main:
-        aliases:
-          - rabbitmq
+          - auth
 
   mysql:
     image: mysql
@@ -47,34 +37,3 @@ services:
       main:
         aliases:
           - mysql
-
-  database:
-    image: debian
-    container_name: devops_micro_db
-    depends_on:
-      - "rabbitmq"
-      - "mysql"
-    volumes:
-      - ./services/Database:/devops/services/DatabaseService
-      - ./scripts/:/devops/scripts/
-    command: /devops/scripts/run_service.sh DatabaseService
-    networks:
-      main:
-        aliases:
-          - microdb
-
-  RegisterUser:
-    image: debian
-    container_name: devops_micro_registerUser
-    depends_on:
-      - "rabbitmq"
-    volumes:
-      - ./services/RegisterUser:/devops/services/RegisterUser
-      - ./scripts/:/devops/scripts
-    command: /devops/scripts/run_service.sh RegisterUser
-    networks:
-      main:
-        aliases:
-          - microregisteruser
-
-
