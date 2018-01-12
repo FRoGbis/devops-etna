@@ -1,3 +1,5 @@
+import unittest
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -106,3 +108,41 @@ class Database:
         if len(self.session.query(User).filter(User.email == user['email']).filter(User.password == user['password']).all()) == 1:
             return True
         return False
+        
+    def deleteUser(self, user):
+        if len(self.session.query(User).filter(User.email == user['email']).filter(User.password == user['password']).all()) == 1:
+            self.session.query(User).filter(User.email == user['email']).filter(User.password == user['password']).delete(synchronize_session=False)
+            self.session.commit()
+            return True
+        return False
+        
+class DatabaseTest(unittest.TestCase):
+        @classmethod
+        def setUp(self):
+            self.db = Database('devops', 'devops', '127.0.0.1' if 'MYSQL_HOST' not in os.environ else os.environ['MYSQL_HOST'])
+            self.u = {}
+            self.u['admin'] = True
+            self.u['email'] = 'string'
+            self.u['password'] = 'string'
+            self.u['firstname'] = 'string'
+            self.u['lastname'] = 'string'
+            
+        def test_removeUser(self):
+            resp = self.db.deleteUser(self.u)
+            self.assertEqual(resp, True)
+            
+        def test_registerUser(self):
+            self.db.deleteUser(self.u)
+            resp = self.db.registerUser(self.u)
+            self.assertEqual(resp, True)
+
+        def test_loginUser(self):
+            self.db.deleteUser(self.u)
+            self.db.registerUser(self.u)
+            resp = self.db.loginUser(self.u)
+            self.assertEqual(resp, True)
+
+if __name__ == '__main__':
+    unittest.main()
+            
+        
