@@ -1,0 +1,5 @@
+Route
+---
+responses:
+  200:
+    description: "Login user"

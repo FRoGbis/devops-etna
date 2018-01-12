@@ -3,7 +3,7 @@ networks:
   main:
   
 services:
-  api:
+  auth:
     image: debian
     container_name: devops_api
     restart: always
@@ -17,6 +17,21 @@ services:
       main:
         aliases:
           - auth
+
+  catalog:
+    image: debian
+    container_name: devops_catalog
+    restart: always
+    volumes:
+      - ./service_catalog:/devops/service_catalog
+      - ./scripts:/devops/scripts
+    ports:
+      - 4000:3000
+    command: /devops/scripts/run.sh /devops/service_catalog api.py
+    networks:
+      main:
+        aliases:
+          - catalog
 
   mysql:
     image: mysql
