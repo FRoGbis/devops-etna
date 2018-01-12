@@ -1,0 +1,14 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+          token:
+              type: string
+          
+responses:
+  200:
+    description: "Login user"

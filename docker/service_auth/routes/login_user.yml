@@ -8,15 +8,9 @@ parameters:
       properties:
         email:
           type: string
-        lastname:
-            type: string
-        firstname:
-            type: string
         password:
             type: string
-        admin:
-            type: boolean
           
 responses:
   200:
-    description: "Create new user"
+    description: "Login user"

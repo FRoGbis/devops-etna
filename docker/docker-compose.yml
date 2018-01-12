@@ -11,7 +11,7 @@ services:
       - ./service_auth:/devops/service_auth
       - ./scripts:/devops/scripts
     ports:
-      - 5000:5000
+      - 3000:3000
     command: /devops/scripts/run.sh /devops/service_auth api.py
     networks:
       main:

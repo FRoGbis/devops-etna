@@ -101,3 +101,8 @@ class Database:
             self.session.rollback()
             raise
         return True
+        
+    def loginUser(self, user):
+        if len(self.session.query(User).filter(User.email == user['email']).filter(User.password == user['password']).all()) == 1:
+            return True
+        return False
