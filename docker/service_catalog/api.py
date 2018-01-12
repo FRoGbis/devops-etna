@@ -16,4 +16,4 @@ def getRooms():
         resp['rooms'].append({'id': room.roomId, 'hostel': hostel.name, 'category': category.fullName})
     return jsonify(resp), 200
 
-app.run(host='0.0.0.0', port=3000, debug=True)
+app.run(host='0.0.0.0', port=4000, debug=True)

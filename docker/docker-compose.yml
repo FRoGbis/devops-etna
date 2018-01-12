@@ -26,12 +26,30 @@ services:
       - ./service_catalog:/devops/service_catalog
       - ./scripts:/devops/scripts
     ports:
-      - 4000:3000
+      - 4000:4000
     command: /devops/scripts/run.sh /devops/service_catalog api.py
     networks:
       main:
         aliases:
           - catalog
+
+  gateway:
+    image: debian
+    container_name: devops_gateway
+    restart: always
+    volumes:
+      - ./traefik:/devops/traefik
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8080:8080
+      - 80:80
+    command: /devops/traefik/traefik_linux-amd64 -c /devops/traefik/traefik.toml
+    networks:
+      main:
+        aliases:
+          - gateway
+
+
 
   mysql:
     image: mysql
