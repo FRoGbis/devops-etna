@@ -1,0 +1,11 @@
+Route
+---
+parameters:
+    - name: roomId
+      in: path
+      type: string
+      required: true
+        
+responses:
+  200:
+    description: "Get room details"

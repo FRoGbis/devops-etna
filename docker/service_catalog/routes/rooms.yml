@@ -2,4 +2,4 @@ Route
 ---
 responses:
   200:
-    description: "Login user"
+    description: "Get rooms list"

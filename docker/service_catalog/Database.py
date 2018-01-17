@@ -95,5 +95,11 @@ class Database:
         
     def getRooms(self):
         return self.session.query(Room, Hostel, Category).join(Hostel).join(Category).all()
+        
+    def getRoom(self, idRoom):
+        room = self.session.query(Room, Hostel, Category).join(Hostel).join(Category).filter(Room.roomId == idRoom).all()
+        if len(room) != 1:
+            return None
+        return room
             
         

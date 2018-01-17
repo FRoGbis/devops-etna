@@ -1,0 +1,16 @@
+Route
+---
+parameters:
+    - name: body
+      in: body
+      required: true
+      schema:
+        properties:
+          token:
+            type: string
+          roomId:
+            type: string
+        
+responses:
+  200:
+    description: "Book room"

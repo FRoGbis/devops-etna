@@ -5,7 +5,7 @@ networks:
 services:
   auth:
     image: debian
-    container_name: devops_api
+    container_name: devops_auth
     restart: always
     volumes:
       - ./service_auth:/devops/service_auth
