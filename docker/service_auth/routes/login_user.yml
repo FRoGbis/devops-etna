@@ -1,0 +1,25 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        email:
+          type: string
+        password:
+            type: string
+          
+responses:
+  400:
+    description: "User not found or id/password invalid"
+  200:
+    description: "User connected"
+    schema:
+      properties:
+        token:
+            type: string
+  500:
+    description: "Internal error"
+    

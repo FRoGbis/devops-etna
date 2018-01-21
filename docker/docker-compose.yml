@@ -1,0 +1,55 @@
+version: '2.2'
+networks:
+  main:
+  
+services:
+  auth:
+    image: debian
+    container_name: devops_service_auth
+    restart: always
+    volumes:
+      - ./service_auth:/devops/service_auth
+      - ./scripts:/devops/scripts
+    ports:
+      - 3000:3000
+    command: /devops/scripts/run.sh /devops/service_auth api.py
+    networks:
+      main:
+        aliases:
+          - auth
+
+  gateway:
+    image: debian
+    container_name: devops_gateway
+    restart: always
+    volumes:
+      - ./traefik:/devops/traefik
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8080:8080
+      - 80:80
+    command: /devops/traefik/traefik_linux-amd64 -c /devops/traefik/traefik.toml
+    networks:
+      main:
+        aliases:
+          - gateway
+
+  mysql_auth:
+    image: mysql
+    container_name: devops_mysql_auth
+    volumes:
+      - ./mysql/auth/etc/:/etc/mysql/mysql.conf.d/
+      - ./mysql/auth/data:/var/lib/mysql
+      - ./mysql/auth/log:/var/log/mysql
+      - ./mysql/auth/backup:/backup
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "devops"
+      MYSQL_PASSWORD: "devops"
+      MYSQL_DATABASE: "DEVOPS"
+    networks:
+      main:
+        aliases:
+          - mysql_auth
