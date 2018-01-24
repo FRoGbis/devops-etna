@@ -9,7 +9,7 @@ parameters:
         email:
           type: string
         password:
-            type: string
+          type: string
           
 responses:
   400:

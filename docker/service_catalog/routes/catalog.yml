@@ -1,0 +1,26 @@
+Route
+---
+responses:
+  400:
+    description: "Route error"
+  200:
+    description: "Rooms"
+    schema:
+      properties:
+        rooms:
+            type: array
+            items:
+                type: object
+                properties:
+                    roomId:
+                        type: integer
+                    address:
+                        type: string
+                    category:
+                        type: string
+                    price:
+                        type: number
+        
+  500:
+    description: "Internal error"
+    

@@ -18,6 +18,38 @@ services:
         aliases:
           - auth
 
+  catalog:
+    image: debian
+    container_name: devops_service_catalog
+    restart: always
+    volumes:
+      - ./service_catalog:/devops/service_catalog
+      - ./scripts:/devops/scripts
+    ports:
+      - 4000:4000
+    command: /devops/scripts/run.sh /devops/service_catalog api.py
+    networks:
+      main:
+        aliases:
+          - catalog
+
+  price:
+    image: debian
+    container_name: devops_service_price
+    restart: always
+    volumes:
+      - ./service_price:/devops/service_price
+      - ./scripts:/devops/scripts
+    ports:
+      - 5000:5000
+    command: /devops/scripts/run.sh /devops/service_price api.py
+    networks:
+      main:
+        aliases:
+          - price
+
+
+
   gateway:
     image: debian
     container_name: devops_gateway
@@ -34,21 +66,6 @@ services:
         aliases:
           - gateway
 
-  mysql_auth:
-    image: mysql
-    container_name: devops_mysql_auth
-    volumes:
-      - ./mysql/auth/etc/:/etc/mysql/mysql.conf.d/
-      - ./mysql/auth/data:/var/lib/mysql
-      - ./mysql/auth/log:/var/log/mysql
-      - ./mysql/auth/backup:/backup
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_USER: "devops"
-      MYSQL_PASSWORD: "devops"
-      MYSQL_DATABASE: "DEVOPS"
     networks:
       main:
         aliases:

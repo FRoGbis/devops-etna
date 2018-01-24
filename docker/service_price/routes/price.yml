@@ -1,0 +1,26 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        token:
+            type: string
+        roomId:
+            type: integer
+        categoryId:
+            type: string
+          
+responses:
+  400:
+    description: "get price error"
+  200:
+    description: "get room price"
+    schema:
+      properties:
+        price:
+            type: number
+  500:
+    description: "Internal error"
