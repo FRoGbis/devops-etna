@@ -1,37 +1,51 @@
-- name: Import files from tickstack
+- name: pull chronograf
   become: true
-  copy:
-    src: ../../provision/influxdata
-    dest: /home/bebel_f/
+  docker_image:
+    name: chronograf
 
-- name: Build chronograf
+- name: Tag chronograf
   become: true
-  command: docker build -t myregistry.com:5000/chronograf /home/bebel_f/influxdata/chronograf
+  command: docker tag chronograf myregistry.com:5000/chronograf
 
-- name: Push chronograf image on registry
+- name: Push chronograf to local registry
   become: true
   command: docker push myregistry.com:5000/chronograf
 
-- name: Build influxdb
+- name: pull influxdb
   become: true
-  command: docker build -t myregistry.com:5000/influxdb /home/bebel_f/influxdata/influxdb
+  docker_image:
+    name: influxdb
 
-- name: Push influxdb image on registry
+- name: Tag influxdb
+  become: true
+  command: docker tag influxdb myregistry.com:5000/influxdb
+
+- name: Push influxdb to local registry
   become: true
   command: docker push myregistry.com:5000/influxdb
 
-- name: Build kapacitor
+- name: pull kapacitor
   become: true
-  command: docker build -t myregistry.com:5000/kapacitor /home/bebel_f/influxdata/kapacitor
+  docker_image:
+    name: kapacitor
 
-- name: Push kapacitor image on registry
+- name: Tag kapacitor
+  become: true
+  command: docker tag kapacitor myregistry.com:5000/kapacitor
+
+- name: Push kapacitor to local registry
   become: true
   command: docker push myregistry.com:5000/kapacitor
 
-- name: Build telegraf
+- name: pull telegraf
   become: true
-  command: docker build -t myregistry.com:5000/telegraf /home/bebel_f/influxdata/telegraf
+  docker_image:
+    name: telegraf
 
-- name: Push telegraf image on registry
+- name: Tag telegraf
+  become: true
+  command: docker tag telegraf myregistry.com:5000/telegraf
+
+- name: Push telegraf to local registry
   become: true
   command: docker push myregistry.com:5000/telegraf
