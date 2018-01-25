@@ -7,20 +7,21 @@ parameters:
     schema:
       properties:
         token:
-            type: string
+          type: string
         roomId:
-            type: integer
-        categoryId:
-            type: integer
+            type: number
           
 responses:
   400:
-    description: "get price error"
+    description: "Invalid request"
   200:
-    description: "get room price"
+    description: "liste des dates reserve pour cette chambre"
     schema:
       properties:
-        price:
-            type: number
+        dates:
+            type: array
+            items:
+                type: string
   500:
     description: "Internal error"
+    

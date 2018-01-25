@@ -1,0 +1,22 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+
+responses:
+  400:
+    description: "erreur ajout hotel"
+  200:
+    description: "Hotel ajoute"
+        
+  500:
+    description: "Internal error"
+    

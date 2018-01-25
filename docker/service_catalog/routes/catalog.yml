@@ -14,12 +14,14 @@ responses:
                 properties:
                     roomId:
                         type: integer
-                    address:
+                    address_hotel:
                         type: string
                     category:
                         type: string
                     price:
                         type: number
+                    hotelId:
+                        type: integer
         
   500:
     description: "Internal error"

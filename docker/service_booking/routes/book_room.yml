@@ -1,0 +1,37 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        token:
+          type: string
+        roomId:
+            type: number
+        startDate:
+            type: string
+        endDate:
+            type: string
+        garage:
+            type: boolean
+        litbebe:
+            type: boolean
+        petitdej:
+            type: boolean
+        nomClient:
+            type: string
+        prenomClient:
+            type: string
+        mail:
+            type: string
+          
+responses:
+  400:
+    description: "Invalid request"
+  200:
+    description: "Reservation reussi"
+  500:
+    description: "Internal error"
+    

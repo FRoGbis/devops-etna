@@ -1,5 +1,12 @@
+import sys
 from flask import Flask, request, jsonify
 from flasgger import Swagger, swag_from
+
+if len(sys.argv) < 2:
+    "print not enough argument"
+    exit(1)
+
+PORT = int(sys.argv[1])
 
 from AuthMock import AuthMock
 mock = AuthMock()
@@ -23,4 +30,4 @@ def login_user():
         return "Invalid login", 400
     return jsonify(rep), 200
     
-app.run(host='0.0.0.0', port=3000)
+app.run(host='0.0.0.0', port=PORT)
