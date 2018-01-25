@@ -11,9 +11,9 @@ RUN set -ex && \
     for key in \
         05CE15085FC09D18E99EFB22684A14CF2582E0C5 ; \
     do \
-        gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" || \
-        gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
-        gpg --keyserver keyserver.pgp.com --recv-keys "$key" ; \
+        gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-keys "$key" || \
+        gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" || \
+        gpg --keyserver hkp://keyserver.pgp.com:80 --recv-keys "$key" ; \
     done && \
     wget -q https://dl.influxdata.com/chronograf/releases/chronograf-${CHRONOGRAF_VERSION}-static_linux_amd64.tar.gz.asc && \
     wget -q https://dl.influxdata.com/chronograf/releases/chronograf-${CHRONOGRAF_VERSION}-static_linux_amd64.tar.gz && \
