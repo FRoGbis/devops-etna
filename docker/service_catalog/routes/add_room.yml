@@ -1,0 +1,25 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        hotelId:
+          type: integer
+        categoryId:
+          type: integer
+        litbebe:
+            type: integer
+        parking:
+            type: integer
+
+responses:
+  400:
+    description: "erreur ajout chambre"
+  200:
+    description: "Chambre ajoute"
+        
+  500:
+    description: "Internal error"

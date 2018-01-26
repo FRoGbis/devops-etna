@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $# -ne 2 ]
+if [ $# -ne 3 ]
 then
   echo "Invalid number of argument"
   exit 1
@@ -23,6 +23,6 @@ apt-get install -y python3 python3-pip
 
 cd $1
 pip3 install -r requirements.txt
-python3 $2
+python3 $2 $3
 
 exit 0

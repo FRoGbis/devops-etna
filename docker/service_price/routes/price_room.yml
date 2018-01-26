@@ -10,17 +10,13 @@ parameters:
             type: string
         roomId:
             type: integer
-        categoryId:
-            type: integer
+        newPrice:
+            type: number
           
 responses:
   400:
-    description: "get price error"
+    description: "Change base price error"
   200:
-    description: "get room price"
-    schema:
-      properties:
-        price:
-            type: number
+    description: "Base room price changed"
   500:
     description: "Internal error"

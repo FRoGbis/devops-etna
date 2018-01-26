@@ -1,6 +1,7 @@
 version: '2.2'
 networks:
   main:
+  internal:
   
 services:
   auth:
@@ -12,7 +13,7 @@ services:
       - ./scripts:/devops/scripts
     ports:
       - 3000:3000
-    command: /devops/scripts/run.sh /devops/service_auth api.py
+    command: /devops/scripts/run.sh /devops/service_auth api.py 3000
     networks:
       main:
         aliases:
@@ -26,8 +27,8 @@ services:
       - ./service_catalog:/devops/service_catalog
       - ./scripts:/devops/scripts
     ports:
-      - 4000:4000
-    command: /devops/scripts/run.sh /devops/service_catalog api.py
+      - 3100:3100
+    command: /devops/scripts/run.sh /devops/service_catalog api.py 3100
     networks:
       main:
         aliases:
@@ -41,13 +42,30 @@ services:
       - ./service_price:/devops/service_price
       - ./scripts:/devops/scripts
     ports:
-      - 5000:5000
-    command: /devops/scripts/run.sh /devops/service_price api.py
+      - 3200:3200
+    command: /devops/scripts/run.sh /devops/service_price api.py 3200
     networks:
       main:
         aliases:
           - price
 
+  book:
+    image: debian
+    container_name: devops_service_booking
+    restart: always
+    volumes:
+      - ./service_booking:/devops/service_booking
+      - ./scripts:/devops/scripts
+    ports:
+      - 3300:3300
+    command: /devops/scripts/run.sh /devops/service_booking api.py 3300
+    networks:
+      main:
+        aliases:
+          - booking
+      internal:
+        aliases:
+          - booking
 
 
   gateway:
@@ -66,7 +84,3 @@ services:
         aliases:
           - gateway
 
-    networks:
-      main:
-        aliases:
-          - mysql_auth
