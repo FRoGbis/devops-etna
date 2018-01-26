@@ -49,3 +49,19 @@
 - name: Push telegraf to local registry
   become: true
   command: docker push myregistry.com:5000/telegraf
+
+- name: Create service chronograf in swarm
+  become: true
+  command: docker service create --name=chronograf myregistry.com:5000/chronograf
+
+- name: Create service influxdb in swarm
+  become: true
+  command: docker service create --name=influxdb myregistry.com:5000/influxdb
+
+- name: Create service kapacitor in swarm
+  become: true
+  command: docker service create --name=kapacitor myregistry.com:5000/kapacitor
+
+- name: Create service telegraf in swarm
+  become: true
+  command: docker service create --name=telegraf myregistry.com:5000/telegraf
