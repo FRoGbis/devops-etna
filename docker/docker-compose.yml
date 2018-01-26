@@ -66,6 +66,21 @@ services:
       internal:
         aliases:
           - booking
+  
+  mailer:
+    image: debian
+    container_name: devops_service_mailer
+    restart: always
+    volumes:
+      - ./service_mail:/devops/service_mail
+      - ./scripts:/devops/scripts
+    ports:
+      - 3400:3400
+    command: /devops/scripts/run.sh /devops/service_mail api.py 3400
+    networks:
+      internal:
+        aliases:
+          - booking
 
 
   gateway:

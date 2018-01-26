@@ -1,0 +1,20 @@
+Route
+---
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        email:
+            type: string
+        message:
+            type: string
+          
+responses:
+  400:
+    description: "Change base price error"
+  200:
+    description: "Base room price changed"
+  500:
+    description: "Internal error"
