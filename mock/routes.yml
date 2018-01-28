@@ -1,0 +1,96 @@
+swagger: "2.0"
+info:
+    version: "1.0"
+    title: "Booking avbl"
+
+paths:
+    /catalog:
+        get:
+            responses:
+              400:
+                description: "Route error"
+              200:
+                description: "Rooms"
+                schema:
+                  properties:
+                    rooms:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                roomId:
+                                    type: integer
+                                address_hotel:
+                                    type: string
+                                category:
+                                    type: string
+                                price:
+                                    type: number
+                                hotelId:
+                                    type: integer
+                    
+              500:
+                description: "Internal error"
+    
+    /book:
+        get:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    token:
+                      type: string
+                    roomId:
+                        type: number
+                      
+            responses:
+              400:
+                description: "Invalid request"
+              200:
+                description: "liste des dates reserve pour cette chambre"
+                schema:
+                  properties:
+                    dates:
+                        type: array
+                        items:
+                            type: string
+              500:
+                description: "Internal error"
+                
+        post:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    token:
+                      type: string
+                    roomId:
+                        type: number
+                    startDate:
+                        type: string
+                    endDate:
+                        type: string
+                    garage:
+                        type: boolean
+                    litbebe:
+                        type: boolean
+                    petitdej:
+                        type: boolean
+                    nomClient:
+                        type: string
+                    prenomClient:
+                        type: string
+                    mail:
+                        type: string
+                      
+            responses:
+              400:
+                description: "Invalid request"
+              200:
+                description: "Reservation reussi"
+              500:
+                description: "Internal error"
