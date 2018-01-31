@@ -13,7 +13,7 @@ swagger = Swagger(app)
 
 @app.route('/mail', methods=['POST'])
 @swag_from('routes/mail.yml')
-def price():
+def mail():
     return "OK", 200
 
     

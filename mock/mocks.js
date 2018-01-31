@@ -8,7 +8,7 @@ routes.responses({
    operation: 'get',
    response: 200 
 }, function(error, mock) {
-    console.log(COLOR, "Le client récupére des chambres\x1b[0m\n/catalog get", JSON.stringify(mock));
+    console.log(COLOR, "Le client récupére des chambres\x1b[0m\n/catalog get", JSON.stringify(mock, null, 4));
 });
 
 routes.responses({
