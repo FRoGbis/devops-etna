@@ -94,3 +94,199 @@ paths:
                 description: "Reservation reussi"
               500:
                 description: "Internal error"
+                
+    /price:
+        get:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    token:
+                        type: string
+                    roomId:
+                        type: integer
+                    categoryId:
+                        type: integer
+                      
+            responses:
+              400:
+                description: "get price error"
+              200:
+                description: "get room price"
+                schema:
+                  properties:
+                    price:
+                        type: number
+              500:
+                description: "Internal error"
+                
+    /mail:
+        post:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    email:
+                        type: string
+                    message:
+                        type: string
+                      
+            responses:
+              400:
+                description: "Change base price error"
+              200:
+                description: "Base room price changed"
+              500:
+                description: "Internal error"
+                
+    /register_user:
+        post:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    email:
+                      type: string
+                    lastname:
+                        type: string
+                    firstname:
+                        type: string
+                    password:
+                        type: string
+                    admin:
+                        type: boolean
+                      
+            responses:
+              200:
+                description: "Create new user"
+              400:
+                description: "User not found"
+              500:
+                description: "Internal error"
+                
+    /login_user:
+        post:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                      
+            responses:
+              400:
+                description: "User not found or id/password invalid"
+              200:
+                description: "User connected"
+                schema:
+                  properties:
+                    token:
+                        type: string
+              500:
+                description: "Internal error"
+                
+    /catalog/room:
+        post:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    hotelId:
+                      type: integer
+                    categoryId:
+                      type: integer
+                    litbebe:
+                        type: integer
+                    parking:
+                        type: integer
+
+            responses:
+              400:
+                description: "erreur ajout chambre"
+              200:
+                description: "Chambre ajoute"
+                    
+              500:
+                description: "Internal error"
+                
+    /catalog/hotel:
+        post:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    name:
+                      type: string
+                    address:
+                      type: string
+
+            responses:
+              400:
+                description: "erreur ajout hotel"
+              200:
+                description: "Hotel ajoute"
+                    
+              500:
+                description: "Internal error"
+
+    /price/room:
+        patch:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    token:
+                        type: string
+                    roomId:
+                        type: integer
+                    newPrice:
+                        type: number
+                      
+            responses:
+              400:
+                description: "Change base price error"
+              200:
+                description: "Base room price changed"
+              500:
+                description: "Internal error"
+                
+    /price/increase:
+        patch:
+            parameters:
+              - name: body
+                in: body
+                required: true
+                schema:
+                  properties:
+                    token:
+                        type: string
+                    days:
+                        type: array
+                        items:
+                            type: string
+                    percentage:
+                        type: number
+                      
+            responses:
+              400:
+                description: "Price percent change fail"
+              200:
+                description: "Price coeff changed"
+              500:
+                description: "Internal error"
