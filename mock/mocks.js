@@ -1,20 +1,23 @@
 var Swagmock = require('swagmock');
 var routes = Swagmock('./routes.yml');
 
+COLOR = "\x1b[34;1m"
+
 routes.responses({
    path: '/catalog',
    operation: 'get',
    response: 200 
 }, function(error, mock) {
-    console.log("/cataog get", JSON.stringify(mock));
+    console.log(COLOR, "Le client récupére des chambres\x1b[0m\n/catalog get", JSON.stringify(mock));
 });
 
 routes.responses({
     path: '/price',
     operation: 'get',
-    response: 200
+    response: 200,
+    useExamples: true
 }, function(error, mock) {
-    console.log("/price get", mock);
+    console.log(COLOR, "Le client récupére le prix pour cette chambre\x1b[0m\n/price get", mock);
 });
 
 routes.responses({
@@ -22,7 +25,7 @@ routes.responses({
    operation: 'get',
    response: 200 
 }, function(error, mock) {
-    console.log("/book get", mock);
+    console.log(COLOR, "Le client récupère les dates de réservation pour cette chambre\x1b[0m \n/book get", mock);
 });
 
 routes.responses({
@@ -30,7 +33,7 @@ routes.responses({
    operation: 'post',
    response: 200 
 }, function(error, mock) {
-    console.log("/book post", JSON.stringify(mock));
+    console.log(COLOR, "Le client reserve la chambre\x1b[0m\n/book post", JSON.stringify(mock));
 });
 
 routes.responses({
@@ -38,7 +41,7 @@ routes.responses({
    operation: 'post',
    response: 200 
 }, function(error, mock) {
-    console.log("/mail post", JSON.stringify(mock));
+    console.log(COLOR, "Un mail de confirmation est envoyé au client\x1b[0m\n/mail post", JSON.stringify(mock));
 });
 
 routes.responses({
@@ -46,7 +49,7 @@ routes.responses({
     operation: 'post',
     response: 200
 }, function(error, mock) {
-    console.log("/register_user post", JSON.stringify(mock));
+    console.log(COLOR, "Un user enregistre un nouvel user\x1b[0m\n/register_user post", JSON.stringify(mock));
 });
 
 routes.responses({
@@ -54,7 +57,7 @@ routes.responses({
     operation: 'post',
     response: 200
 }, function(error, mock) {
-    console.log("/login_user post", JSON.stringify(mock));
+    console.log(COLOR, "Un user se connecte\x1b[0m\n/login_user post", JSON.stringify(mock));
 });
 
 routes.responses({
@@ -62,7 +65,7 @@ routes.responses({
     operation: 'post',
     response: 200
 }, function(err, mock) {
-    console.log("/catalog/hotel post", JSON.stringify(mock));
+    console.log(COLOR, "Un user admin ajoute ensuite un hotel\x1b[0m\n/catalog/hotel post", JSON.stringify(mock));
 });
 
 routes.responses({
@@ -70,7 +73,7 @@ routes.responses({
    operation: 'post',
    response: 200 
 }, function(err, mock) {
-    console.log("/catalog/room post", JSON.stringify(mock));
+    console.log(COLOR, "Un user admin ajoute une chambre\x1b[0m\n/catalog/room post", JSON.stringify(mock));
 });
 
 routes.responses({
@@ -78,7 +81,7 @@ routes.responses({
    operation: 'patch',
    response: 200 
 }, function(err, mock) {
-    console.log("/price/room patch", JSON.stringify(mock));
+    console.log(COLOR, "Un admin augmente le prix d'une chambre\x1b[0m\n/price/room patch", JSON.stringify(mock));
 });
 
 routes.responses({
@@ -86,5 +89,5 @@ routes.responses({
    operation: 'patch',
    response: 200 
 }, function(err, mock) {
-    console.log("/price/increase patch", JSON.stringify(mock));
+    console.log(COLOR, "Un admin augemente le coeff\x1b[0m\n/price/increase patch", JSON.stringify(mock));
 });

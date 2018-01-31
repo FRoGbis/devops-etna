@@ -10,7 +10,7 @@ paths:
               400:
                 description: "Route error"
               200:
-                description: "Rooms"
+                description: "Fetch rooms"
                 schema:
                   properties:
                     rooms:
@@ -119,6 +119,7 @@ paths:
                   properties:
                     price:
                         type: number
+                        example: 150
               500:
                 description: "Internal error"
                 
