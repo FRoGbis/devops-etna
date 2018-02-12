@@ -6,6 +6,10 @@
 #   roles:
 #     - role: docker_registry
 
+# - hosts: manager
+#   roles:
+#     - role: docker_tickstack
+
 - hosts: manager
   roles:
-    - role: docker_tickstack
+    - role: showoff_docker_build_deploy
